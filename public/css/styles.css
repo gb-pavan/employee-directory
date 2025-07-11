@@ -1,0 +1,15 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 1rem;
+}
+.employee-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.employee-card {
+  background: #f2f2f2;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 250px;
+}
