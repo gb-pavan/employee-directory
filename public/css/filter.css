@@ -6,6 +6,7 @@
   padding: 15px;
   border-radius: 4px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 15px;
   flex-wrap: wrap;
@@ -25,3 +26,34 @@
   border-radius: 4px;
   border: 1px solid #ccc;
 }
+
+/* .sort-paginate-container {
+  display: flex;
+  padding: 10px;
+  background-color: orange;
+  gap: 20px;
+} */
+
+.sort-paginate-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  padding: 15px;
+}
+
+.left-controls,
+.right-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.right-controls button {
+  background-color: green;
+  color: white;
+  padding: 8px 16px;
+}
+
+
