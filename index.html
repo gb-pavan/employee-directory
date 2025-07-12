@@ -23,25 +23,6 @@
       <button id="filterToggleBtn">Filter</button>
     </div>
 
-    <!-- Filter Panel -->
-    <!-- <div id="filterPanel" class="filter-panel hidden">
-      <h3>Filters</h3>
-      <label>
-        First Name:
-        <input type="text" id="filterFirstName" />
-      </label>
-      <label>
-        Department:
-        <input type="text" id="filterDepartment" />
-      </label>
-      <label>
-        Role:
-        <input type="text" id="filterRole" />
-      </label>
-      <button id="applyFiltersBtn">Apply Filters</button>
-      <button id="clearFiltersBtn">Clear</button>
-    </div> -->
-
     <div class="sort-paginate-container">
   <div class="left-controls">
     <label for="sortSelect">Sort:</label>
@@ -80,6 +61,57 @@
     </div>
 
   </main>
+  <!-- ✅ Filter Modal -->
+<!-- <div id="filterModal" class="modal hidden">
+  <div class="modal-overlay"></div>
+  <div class="modal-content slide-in">
+    <h3>Filters</h3>
+    <label>
+      First Name:
+      <input type="text" id="filterFirstName" />
+    </label>
+    <label>
+      Department:
+      <input type="text" id="filterDepartment" />
+    </label>
+    <label>
+      Role:
+      <input type="text" id="filterRole" />
+    </label>
+    <div class="filter-actions">
+      <button id="applyFiltersBtn">Apply Filters</button>
+      <button id="clearFiltersBtn">Clear</button>
+    </div>
+  </div>
+</div> -->
+<div id="filterModal" class="modal hidden">
+  <div class="modal-overlay"></div>
+  <div class="modal-content slide-in">
+    <h3>Filters</h3>
+
+    <div class="filter-group">
+      <label for="filterFirstName">First Name:</label>
+      <input type="text" id="filterFirstName" />
+    </div>
+
+    <div class="filter-group">
+      <label for="filterDepartment">Department:</label>
+      <input type="text" id="filterDepartment" />
+    </div>
+
+    <div class="filter-group">
+      <label for="filterRole">Role:</label>
+      <input type="text" id="filterRole" />
+    </div>
+
+    <div class="filter-actions">
+      <button id="applyFiltersBtn">Apply Filters</button>
+      <button id="clearFiltersBtn">Clear</button>
+    </div>
+  </div>
+</div>
+
+
 
 
   <script type="module" src="public/js/app.js"></script>

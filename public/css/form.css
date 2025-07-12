@@ -1,19 +1,84 @@
-/* Buttons */
-button {
-  padding: 8px 14px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+/* Full-page center alignment */
+body.form-add {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: #f1f1f1;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column; /* ✅ Stack content vertically */
+  justify-content: center;
+  align-items: center;
 }
 
-/* Add Button */
-#addEmployeeBtn {
-  background-color: #28a745;
-  color: white;
-  float: right;
+.main-form-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+
+/* Form Container Styling */
+.form-container {
+  background-color: #fff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+/* Form Header */
+.form-container h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+}
+
+/* Group styles */
+.form-group {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 15px;
 }
 
-#addEmployeeBtn:hover {
-  background-color: #218838;
+.form-group label {
+  margin-bottom: 5px;
+  color: #444;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* Form actions */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+button[type="button"] {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+button[type="button"]:hover {
+  background-color: #ccc;
 }

@@ -882,6 +882,23 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+const filterToggleBtn = document.getElementById("filterToggleBtn");
+const filterModal = document.getElementById("filterModal");
+const modalOverlay = document.querySelector(".modal-overlay");
+
+filterToggleBtn?.addEventListener("click", () => {
+  filterModal.classList.remove("hidden");
+  filterModal.classList.add("show");
+});
+
+modalOverlay?.addEventListener("click", () => {
+  filterModal.classList.remove("show");
+  setTimeout(() => {
+    filterModal.classList.add("hidden");
+  }, 300); // Wait for animation
+});
+
+
 // Search, Sort, Filters
 document.getElementById("searchInput")?.addEventListener("input", (e) => {
   updateSearchFilter(e.target.value);
