@@ -1,0 +1,13 @@
+@media (max-width: 768px) {
+  .employee-grid {
+    grid-template-columns: 1fr;
+  }
+
+  header {
+    font-size: 1rem;
+  }
+
+  form {
+    padding: 1rem;
+  }
+}
