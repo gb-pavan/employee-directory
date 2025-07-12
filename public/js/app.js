@@ -55,10 +55,34 @@
 
 let employees = JSON.parse(localStorage.getItem("employees") || "[]");
 
+let pagination = {
+  currentPage: 1,
+  itemsPerPage: 10
+};
+
 window.addEventListener("DOMContentLoaded", () => {
   renderEmployeeDashboard();
   attachFormHandler();
   prefillFormIfEditing();
+
+  document.getElementById("itemsPerPage")?.addEventListener("change", (e) => {
+  pagination.itemsPerPage = parseInt(e.target.value);
+  pagination.currentPage = 1;
+  renderEmployeeDashboard();
+});
+
+document.getElementById("prevPage")?.addEventListener("click", () => {
+  if (pagination.currentPage > 1) {
+    pagination.currentPage--;
+    renderEmployeeDashboard();
+  }
+});
+
+document.getElementById("nextPage")?.addEventListener("click", () => {
+  pagination.currentPage++;
+  renderEmployeeDashboard();
+});
+
 });
 
 let filters = {
@@ -141,24 +165,52 @@ function renderEmployeeDashboard() {
     });
   }
 
+  const totalEmployees = employees.length;
+  const totalPages = Math.ceil(totalEmployees / pagination.itemsPerPage);
+
+  // Ensure current page stays in bounds
+  pagination.currentPage = Math.min(pagination.currentPage, totalPages || 1);
+
+  const startIndex = (pagination.currentPage - 1) * pagination.itemsPerPage;
+  const endIndex = startIndex + pagination.itemsPerPage;
+  const employeesToShow = employees.slice(startIndex, endIndex);
+
+
   // Render
   if (employees.length === 0) {
     container.innerHTML = "<p>No employees found.</p>";
     return;
   }
 
-  container.innerHTML = employees.map(emp => `
-    <div class="employee-card">
-      <h3>${emp.firstName} ${emp.lastName}</h3>
-      <p><strong>Email:</strong> ${emp.email}</p>
-      <p><strong>Department:</strong> ${emp.department}</p>
-      <p><strong>Role:</strong> ${emp.role}</p>
-      <div class="button-group">
-        <button class="edit-btn" onclick="startEdit(${emp.id})">Edit</button>
-        <button class="delete-btn" onclick="deleteEmployee(${emp.id})">Delete</button>
-      </div>
+  // container.innerHTML = employees.map(emp => `
+  //   <div class="employee-card">
+  //     <h3>${emp.firstName} ${emp.lastName}</h3>
+  //     <p><strong>Email:</strong> ${emp.email}</p>
+  //     <p><strong>Department:</strong> ${emp.department}</p>
+  //     <p><strong>Role:</strong> ${emp.role}</p>
+  //     <div class="button-group">
+  //       <button class="edit-btn" onclick="startEdit(${emp.id})">Edit</button>
+  //       <button class="delete-btn" onclick="deleteEmployee(${emp.id})">Delete</button>
+  //     </div>
+  //   </div>
+  // `).join("");
+
+  container.innerHTML = employeesToShow.map(emp => `
+  <div class="employee-card">
+    <h3>${emp.firstName} ${emp.lastName}</h3>
+    <p><strong>Email:</strong> ${emp.email}</p>
+    <p><strong>Department:</strong> ${emp.department}</p>
+    <p><strong>Role:</strong> ${emp.role}</p>
+    <div class="button-group">
+      <button class="edit-btn" onclick="startEdit(${emp.id})">Edit</button>
+      <button class="delete-btn" onclick="deleteEmployee(${emp.id})">Delete</button>
     </div>
-  `).join("");
+  </div>
+`).join("");
+
+// Update page indicator
+document.getElementById("pageIndicator").textContent =
+  `Page ${pagination.currentPage} of ${totalPages || 1}`;
 }
 
 

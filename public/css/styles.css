@@ -96,3 +96,18 @@ button[type="button"] {
   display: none;
 }
 
+
+
+
+
+
+.pagination-controls {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+
