@@ -46,10 +46,44 @@
 <body>
   <header>
     <h1>Employee Directory</h1>
-    <a href="/form.html"><button>Add Employee</button></a>
+    <a href="form.html"><button>Add Employee</button></a>
   </header>
 
   <main>
+
+    <div class="toolbar">
+  <input type="text" id="searchInput" placeholder="Search by name or email" />
+
+  <select id="sortSelect">
+    <option value="">Sort By</option>
+    <option value="firstName-asc">First Name (A-Z)</option>
+    <option value="firstName-desc">First Name (Z-A)</option>
+    <option value="department-asc">Department (A-Z)</option>
+    <option value="department-desc">Department (Z-A)</option>
+  </select>
+
+  <button id="filterToggleBtn">Filters</button>
+</div>
+
+<!-- Filter Panel -->
+<div id="filterPanel" class="filter-panel hidden">
+  <h3>Filters</h3>
+  <label>
+    First Name:
+    <input type="text" id="filterFirstName" />
+  </label>
+  <label>
+    Department:
+    <input type="text" id="filterDepartment" />
+  </label>
+  <label>
+    Role:
+    <input type="text" id="filterRole" />
+  </label>
+  <button id="applyFiltersBtn">Apply Filters</button>
+  <button id="clearFiltersBtn">Clear</button>
+</div>
+
     <!-- This is where employee cards will be injected -->
     <div id="employeeContainer" class="employee-grid"></div>
   </main>

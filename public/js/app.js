@@ -61,12 +61,87 @@ window.addEventListener("DOMContentLoaded", () => {
   prefillFormIfEditing();
 });
 
+let filters = {
+  search: "",
+  sortBy: "",
+  filterFirstName: "",
+  filterDepartment: "",
+  filterRole: ""
+};
+
+document.getElementById("searchInput")?.addEventListener("input", (e) => {
+  filters.search = e.target.value.toLowerCase();
+  renderEmployeeDashboard();
+});
+
+document.getElementById("sortSelect")?.addEventListener("change", (e) => {
+  filters.sortBy = e.target.value;
+  renderEmployeeDashboard();
+});
+
+document.getElementById("filterToggleBtn")?.addEventListener("click", () => {
+  document.getElementById("filterPanel").classList.toggle("hidden");
+});
+
+document.getElementById("applyFiltersBtn")?.addEventListener("click", () => {
+  filters.filterFirstName = document.getElementById("filterFirstName").value.toLowerCase();
+  filters.filterDepartment = document.getElementById("filterDepartment").value.toLowerCase();
+  filters.filterRole = document.getElementById("filterRole").value.toLowerCase();
+  renderEmployeeDashboard();
+});
+
+document.getElementById("clearFiltersBtn")?.addEventListener("click", () => {
+  filters = { search: "", sortBy: "", filterFirstName: "", filterDepartment: "", filterRole: "" };
+  document.getElementById("searchInput").value = "";
+  document.getElementById("sortSelect").value = "";
+  document.getElementById("filterFirstName").value = "";
+  document.getElementById("filterDepartment").value = "";
+  document.getElementById("filterRole").value = "";
+  renderEmployeeDashboard();
+});
+
 function renderEmployeeDashboard() {
   const container = document.getElementById("employeeContainer");
   if (!container) return;
 
-  employees = JSON.parse(localStorage.getItem("employees") || "[]");
+  let employees = JSON.parse(localStorage.getItem("employees") || "[]");
 
+  // Search
+  if (filters.search) {
+    employees = employees.filter(emp =>
+      (emp.firstName + " " + emp.lastName).toLowerCase().includes(filters.search) ||
+      emp.email.toLowerCase().includes(filters.search)
+    );
+  }
+
+  // Filter
+  if (filters.filterFirstName) {
+    employees = employees.filter(emp =>
+      emp.firstName.toLowerCase().includes(filters.filterFirstName)
+    );
+  }
+  if (filters.filterDepartment) {
+    employees = employees.filter(emp =>
+      emp.department.toLowerCase().includes(filters.filterDepartment)
+    );
+  }
+  if (filters.filterRole) {
+    employees = employees.filter(emp =>
+      emp.role.toLowerCase().includes(filters.filterRole)
+    );
+  }
+
+  // Sort
+  if (filters.sortBy) {
+    const [field, order] = filters.sortBy.split("-");
+    employees.sort((a, b) => {
+      const valA = a[field].toLowerCase();
+      const valB = b[field].toLowerCase();
+      return order === "asc" ? valA.localeCompare(valB) : valB.localeCompare(valA);
+    });
+  }
+
+  // Render
   if (employees.length === 0) {
     container.innerHTML = "<p>No employees found.</p>";
     return;
@@ -85,6 +160,32 @@ function renderEmployeeDashboard() {
     </div>
   `).join("");
 }
+
+
+// function renderEmployeeDashboard() {
+//   const container = document.getElementById("employeeContainer");
+//   if (!container) return;
+
+//   employees = JSON.parse(localStorage.getItem("employees") || "[]");
+
+//   if (employees.length === 0) {
+//     container.innerHTML = "<p>No employees found.</p>";
+//     return;
+//   }
+
+//   container.innerHTML = employees.map(emp => `
+//     <div class="employee-card">
+//       <h3>${emp.firstName} ${emp.lastName}</h3>
+//       <p><strong>Email:</strong> ${emp.email}</p>
+//       <p><strong>Department:</strong> ${emp.department}</p>
+//       <p><strong>Role:</strong> ${emp.role}</p>
+//       <div class="button-group">
+//         <button class="edit-btn" onclick="startEdit(${emp.id})">Edit</button>
+//         <button class="delete-btn" onclick="deleteEmployee(${emp.id})">Delete</button>
+//       </div>
+//     </div>
+//   `).join("");
+// }
 
 function attachFormHandler() {
   const form = document.getElementById("employeeForm");
@@ -138,7 +239,7 @@ function handleFormSubmit(editingId) {
 
   localStorage.setItem("employees", JSON.stringify(employees));
   alert("Employee saved!");
-  window.location.href = "/";
+  window.location.href = "index.html";
 }
 
 function validateEmail(email) {
@@ -148,7 +249,7 @@ function validateEmail(email) {
 
 function startEdit(id) {
   localStorage.setItem("editingId", id);
-  window.location.href = "/form.html";
+  window.location.href = "form.html";
 }
 
 function prefillFormIfEditing() {

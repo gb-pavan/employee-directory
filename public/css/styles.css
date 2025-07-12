@@ -70,3 +70,29 @@ button[type="button"] {
   background-color: #6c757d;
   color: white;
 }
+
+
+
+
+
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  margin: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-panel {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.hidden {
+  display: none;
+}
+
