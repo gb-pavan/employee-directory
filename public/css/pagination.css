@@ -1,11 +1,11 @@
-.pagination {
+/* Pagination Controls */
+.pagination-controls {
+  margin-top: 20px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin-top: 2rem;
+  gap: 10px;
 }
 
-.pagination button {
-  padding: 0.5rem 1rem;
-  margin: 0 0.5rem;
+#itemsPerPage {
+  padding: 6px;
 }
