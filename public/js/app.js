@@ -569,13 +569,275 @@
 
 
 
+// import { renderEmployeeDashboard } from './render.js';
+// import {
+//   loadEmployees,
+//   saveEmployees,
+//   getEditingId,
+//   setEditingId,
+//   clearEditingId
+// } from './data.js';
+// import {
+//   filters,
+//   updateSearchFilter,
+//   updateSortFilter,
+//   updateAdvancedFilters,
+//   clearAllFilters
+// } from './filters.js';
+
+// let employees = loadEmployees();
+
+// let pagination = {
+//   currentPage: 1,
+//   itemsPerPage: 10
+// };
+
+// window.addEventListener("DOMContentLoaded", () => {
+//   renderEmployeeDashboard(employees, filters, pagination);
+//   attachFormHandler();
+//   prefillFormIfEditing();
+
+//   document.getElementById("itemsPerPage")?.addEventListener("change", (e) => {
+//     pagination.itemsPerPage = parseInt(e.target.value);
+//     pagination.currentPage = 1;
+//     renderEmployeeDashboard(employees, filters, pagination);
+//   });
+
+//   document.getElementById("prevPage")?.addEventListener("click", () => {
+//     if (pagination.currentPage > 1) {
+//       pagination.currentPage--;
+//       renderEmployeeDashboard(employees, filters, pagination);
+//     }
+//   });
+
+//   document.getElementById("nextPage")?.addEventListener("click", () => {
+//     pagination.currentPage++;
+//     renderEmployeeDashboard(employees, filters, pagination);
+//   });
+// });
+
+// document.getElementById("searchInput")?.addEventListener("input", (e) => {
+//   updateSearchFilter(e.target.value);
+//   renderEmployeeDashboard(employees, filters, pagination);
+// });
+
+// document.getElementById("sortSelect")?.addEventListener("change", (e) => {
+//   updateSortFilter(e.target.value);
+//   renderEmployeeDashboard(employees, filters, pagination);
+// });
+
+// document.getElementById("filterToggleBtn")?.addEventListener("click", () => {
+//   document.getElementById("filterPanel").classList.toggle("hidden");
+// });
+
+// document.getElementById("applyFiltersBtn")?.addEventListener("click", () => {
+//   updateAdvancedFilters(
+//     document.getElementById("filterFirstName").value,
+//     document.getElementById("filterDepartment").value,
+//     document.getElementById("filterRole").value
+//   );
+//   renderEmployeeDashboard(employees, filters, pagination);
+// });
+
+// document.getElementById("clearFiltersBtn")?.addEventListener("click", () => {
+//   clearAllFilters();
+//   document.getElementById("searchInput").value = "";
+//   document.getElementById("sortSelect").value = "";
+//   document.getElementById("filterFirstName").value = "";
+//   document.getElementById("filterDepartment").value = "";
+//   document.getElementById("filterRole").value = "";
+//   renderEmployeeDashboard(employees, filters, pagination);
+// });
+
+// function attachFormHandler() {
+//   const form = document.getElementById("employeeForm");
+//   if (!form) return;
+
+//   form.addEventListener("submit", (e) => {
+//     e.preventDefault();
+//     const editingId = getEditingId();
+//     handleFormSubmit(editingId);
+//   });
+// }
+
+// function handleFormSubmit(editingId) {
+//   const firstName = document.getElementById("firstName").value.trim();
+//   const lastName = document.getElementById("lastName").value.trim();
+//   const email = document.getElementById("email").value.trim();
+//   const department = document.getElementById("department").value.trim();
+//   const role = document.getElementById("role").value.trim();
+
+//   if (!firstName || !lastName || !email || !department || !role) {
+//     alert("Please fill in all required fields.");
+//     return;
+//   }
+
+//   if (!validateEmail(email)) {
+//     alert("Please enter a valid email address.");
+//     return;
+//   }
+
+//   employees = loadEmployees();
+
+//   if (editingId) {
+//     const index = employees.findIndex(emp => emp.id == editingId);
+//     if (index > -1) {
+//       employees[index] = { id: parseInt(editingId), firstName, lastName, email, department, role };
+//     }
+//     clearEditingId();
+//   } else {
+//     const newEmployee = {
+//       id: Date.now(),
+//       firstName,
+//       lastName,
+//       email,
+//       department,
+//       role
+//     };
+//     employees.push(newEmployee);
+//   }
+
+//   saveEmployees(employees);
+//   alert("Employee saved!");
+//   window.location.href = "index.html";
+// }
+
+// function validateEmail(email) {
+//   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//   return regex.test(email);
+// }
+
+// window.startEdit = function(id) {
+//   setEditingId(id);
+//   window.location.href = "form.html";
+// };
+
+// window.deleteEmployee = function(id) {
+//   if (!confirm("Are you sure you want to delete this employee?")) return;
+
+//   employees = employees.filter(emp => emp.id !== id);
+//   saveEmployees(employees);
+//   renderEmployeeDashboard(employees, filters, pagination);
+// };
+
+// function prefillFormIfEditing() {
+//   const editingId = getEditingId();
+//   if (!editingId) return;
+
+//   employees = loadEmployees();
+//   const emp = employees.find(e => e.id == editingId);
+//   if (!emp) return;
+
+//   document.getElementById("firstName").value = emp.firstName;
+//   document.getElementById("lastName").value = emp.lastName;
+//   document.getElementById("email").value = emp.email;
+//   document.getElementById("department").value = emp.department;
+//   document.getElementById("role").value = emp.role;
+// }
+
+// import { renderEmployeeDashboard } from './render.js';
+// import {
+//   loadEmployees,
+//   saveEmployees,
+//   getEditingId,
+//   setEditingId,
+//   clearEditingId
+// } from './data.js';
+// import {
+//   filters,
+//   updateSearchFilter,
+//   updateSortFilter,
+//   updateAdvancedFilters,
+//   clearAllFilters
+// } from './filters.js';
+// import {
+//   attachFormHandler,
+//   prefillFormIfEditing
+// } from './formHandler.js';
+
+// let employees = loadEmployees();
+
+// let pagination = {
+//   currentPage: 1,
+//   itemsPerPage: 10
+// };
+
+// window.addEventListener("DOMContentLoaded", () => {
+//   renderEmployeeDashboard(employees, filters, pagination);
+//   attachFormHandler(employees, renderEmployeeDashboard, filters, pagination);
+//   prefillFormIfEditing(employees);
+
+//   document.getElementById("itemsPerPage")?.addEventListener("change", (e) => {
+//     pagination.itemsPerPage = parseInt(e.target.value);
+//     pagination.currentPage = 1;
+//     renderEmployeeDashboard(employees, filters, pagination);
+//   });
+
+//   document.getElementById("prevPage")?.addEventListener("click", () => {
+//     if (pagination.currentPage > 1) {
+//       pagination.currentPage--;
+//       renderEmployeeDashboard(employees, filters, pagination);
+//     }
+//   });
+
+//   document.getElementById("nextPage")?.addEventListener("click", () => {
+//     pagination.currentPage++;
+//     renderEmployeeDashboard(employees, filters, pagination);
+//   });
+// });
+
+// document.getElementById("searchInput")?.addEventListener("input", (e) => {
+//   updateSearchFilter(e.target.value);
+//   renderEmployeeDashboard(employees, filters, pagination);
+// });
+
+// document.getElementById("sortSelect")?.addEventListener("change", (e) => {
+//   updateSortFilter(e.target.value);
+//   renderEmployeeDashboard(employees, filters, pagination);
+// });
+
+// document.getElementById("filterToggleBtn")?.addEventListener("click", () => {
+//   document.getElementById("filterPanel").classList.toggle("hidden");
+// });
+
+// document.getElementById("applyFiltersBtn")?.addEventListener("click", () => {
+//   updateAdvancedFilters(
+//     document.getElementById("filterFirstName").value,
+//     document.getElementById("filterDepartment").value,
+//     document.getElementById("filterRole").value
+//   );
+//   renderEmployeeDashboard(employees, filters, pagination);
+// });
+
+// document.getElementById("clearFiltersBtn")?.addEventListener("click", () => {
+//   clearAllFilters();
+//   document.getElementById("searchInput").value = "";
+//   document.getElementById("sortSelect").value = "";
+//   document.getElementById("filterFirstName").value = "";
+//   document.getElementById("filterDepartment").value = "";
+//   document.getElementById("filterRole").value = "";
+//   renderEmployeeDashboard(employees, filters, pagination);
+// });
+
+// window.startEdit = function(id) {
+//   setEditingId(id);
+//   window.location.href = "form.html";
+// };
+
+// window.deleteEmployee = function(id) {
+//   if (!confirm("Are you sure you want to delete this employee?")) return;
+
+//   employees = employees.filter(emp => emp.id !== id);
+//   saveEmployees(employees);
+//   renderEmployeeDashboard(employees, filters, pagination);
+// };
+
+
 import { renderEmployeeDashboard } from './render.js';
 import {
   loadEmployees,
   saveEmployees,
-  getEditingId,
-  setEditingId,
-  clearEditingId
+  setEditingId
 } from './data.js';
 import {
   filters,
@@ -584,6 +846,10 @@ import {
   updateAdvancedFilters,
   clearAllFilters
 } from './filters.js';
+import {
+  attachFormHandler,
+  prefillFormIfEditing
+} from './formHandler.js';
 
 let employees = loadEmployees();
 
@@ -594,8 +860,8 @@ let pagination = {
 
 window.addEventListener("DOMContentLoaded", () => {
   renderEmployeeDashboard(employees, filters, pagination);
-  attachFormHandler();
-  prefillFormIfEditing();
+  attachFormHandler(employees); // ✅ Only employees needed here
+  prefillFormIfEditing(employees);
 
   document.getElementById("itemsPerPage")?.addEventListener("change", (e) => {
     pagination.itemsPerPage = parseInt(e.target.value);
@@ -616,6 +882,7 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// Search, Sort, Filters
 document.getElementById("searchInput")?.addEventListener("input", (e) => {
   updateSearchFilter(e.target.value);
   renderEmployeeDashboard(employees, filters, pagination);
@@ -649,64 +916,7 @@ document.getElementById("clearFiltersBtn")?.addEventListener("click", () => {
   renderEmployeeDashboard(employees, filters, pagination);
 });
 
-function attachFormHandler() {
-  const form = document.getElementById("employeeForm");
-  if (!form) return;
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const editingId = getEditingId();
-    handleFormSubmit(editingId);
-  });
-}
-
-function handleFormSubmit(editingId) {
-  const firstName = document.getElementById("firstName").value.trim();
-  const lastName = document.getElementById("lastName").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const department = document.getElementById("department").value.trim();
-  const role = document.getElementById("role").value.trim();
-
-  if (!firstName || !lastName || !email || !department || !role) {
-    alert("Please fill in all required fields.");
-    return;
-  }
-
-  if (!validateEmail(email)) {
-    alert("Please enter a valid email address.");
-    return;
-  }
-
-  employees = loadEmployees();
-
-  if (editingId) {
-    const index = employees.findIndex(emp => emp.id == editingId);
-    if (index > -1) {
-      employees[index] = { id: parseInt(editingId), firstName, lastName, email, department, role };
-    }
-    clearEditingId();
-  } else {
-    const newEmployee = {
-      id: Date.now(),
-      firstName,
-      lastName,
-      email,
-      department,
-      role
-    };
-    employees.push(newEmployee);
-  }
-
-  saveEmployees(employees);
-  alert("Employee saved!");
-  window.location.href = "index.html";
-}
-
-function validateEmail(email) {
-  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return regex.test(email);
-}
-
+// Global functions for HTML buttons
 window.startEdit = function(id) {
   setEditingId(id);
   window.location.href = "form.html";
@@ -720,17 +930,3 @@ window.deleteEmployee = function(id) {
   renderEmployeeDashboard(employees, filters, pagination);
 };
 
-function prefillFormIfEditing() {
-  const editingId = getEditingId();
-  if (!editingId) return;
-
-  employees = loadEmployees();
-  const emp = employees.find(e => e.id == editingId);
-  if (!emp) return;
-
-  document.getElementById("firstName").value = emp.firstName;
-  document.getElementById("lastName").value = emp.lastName;
-  document.getElementById("email").value = emp.email;
-  document.getElementById("department").value = emp.department;
-  document.getElementById("role").value = emp.role;
-}
